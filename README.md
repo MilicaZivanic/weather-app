@@ -1,4 +1,4 @@
-This is the starter files repo for the weather app project.
+This is a simple multi day weather forecast app
 
 Clone this repo and run `npm install` in your terminal.
 
