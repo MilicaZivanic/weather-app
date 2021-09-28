@@ -10,7 +10,7 @@ const searchInput = document.querySelector('.search__input');
 const searchCity = document.querySelector('.search__city');
 const spinnerWrapper = document.querySelector('.spinner-wrapper');
 const API_KEY = '9a2d317c747b4e8091f8dabfbb0245fd';
-const CORS = 'https://cors-anywhere.herokuapp.com/';
+const CORS = 'https://cors-anywhere.herokuapp.com';
 
 export const initializeSearch = _ => {
   bindSearchEvents();
@@ -31,8 +31,10 @@ const bindSearchEvents = () => {
 };
 
 const updateWeather = async query => {
+  spinnerWrapper.classList.toggle('spinner-wrapper--active');
   const { lat, lon } = await getLatLon(address);
   const weatherData = await getWeatherData(lat, lon);
+  spinnerWrapper.classList.toggle('spinner-wrapper--active');
 
   const weatherCurrent = weatherData.current;
   weatherCurrent.temp = celToKel(weatherCurrent.temp);
@@ -53,14 +55,14 @@ const updateWeather = async query => {
 };
 
 const getWeatherData = async (lat, lon) => {
-  const requestLink = `${CORS}https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+  const requestLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
   const fetchData = await fetch(requestLink);
   const parsed = await fetchData.json();
   return parsed;
 };
 
 const getLatLon = async query => {
-  const requestLink = `http://api.openweathermap.org/geo/1.0/direct?q=${address}&appid=${API_KEY}`;
+  const requestLink = `https://api.openweathermap.org/geo/1.0/direct?q=${address}&appid=${API_KEY}`;
   const fetchData = await fetch(requestLink);
   const parsed = await fetchData.json();
   const latLon = {
